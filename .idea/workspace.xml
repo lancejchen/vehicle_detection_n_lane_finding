@@ -2,77 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3b3b7891-107d-44a2-9693-f8876336fe26" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/output_images/binary_combo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/output_images/color_fit_lines.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/output_images/example_output.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/output_images/test1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/output_images/undistorted.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/output_images/warped_straight_lines.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/lane_finding.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/pipeline-Copy1-checkpoint.ipynb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Line.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/img_gradient_threshold_funcs.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lane_line_validation.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utility_funcs.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.ipynb_checkpoints/pipeline-submission-checkpoint.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example_writeup.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/examples/.ipynb_checkpoints/example-checkpoint.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/examples/binary_combo_example.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/examples/color_fit_lines.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/examples/example.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/examples/example.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/examples/example_output.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/examples/undistort_output.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/examples/warped_straight_lines.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/exp_pipeline.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pipeline-submission.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pipeline_backup.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/writeup_template.md" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration1.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration1.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration10.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration10.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration11.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration11.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration12.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration12.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration13.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration13.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration14.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration14.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration15.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration15.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration16.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration16.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration17.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration17.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration18.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration18.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration19.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration19.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration2.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration2.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration20.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration20.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration3.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration3.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration4.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration4.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration5.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration5.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration6.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration6.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration7.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration7.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration8.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration8.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/camera_cal/calibration9.jpg" afterPath="$PROJECT_DIR$/media/camera_cal/calibration9.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/challenge_video.mp4" afterPath="$PROJECT_DIR$/media/videos/challenge_video.mp4" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/harder_challenge_video.mp4" afterPath="$PROJECT_DIR$/media/videos/harder_challenge_video.mp4" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/normal.mp4" afterPath="$PROJECT_DIR$/media/videos/normal.mp4" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/output_images/save_output_here.txt" afterPath="$PROJECT_DIR$/media/output_images/save_output_here.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/project_video.mp4" afterPath="$PROJECT_DIR$/media/videos/project_video.mp4" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/short.mp4" afterPath="$PROJECT_DIR$/media/videos/short.mp4" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/short_after.mp4" afterPath="$PROJECT_DIR$/media/videos/short_after.mp4" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test_images/straight_lines1.jpg" afterPath="$PROJECT_DIR$/media/test_images/straight_lines1.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test_images/straight_lines2.jpg" afterPath="$PROJECT_DIR$/media/test_images/straight_lines2.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test_images/test1.jpg" afterPath="$PROJECT_DIR$/media/test_images/test1.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test_images/test2.jpg" afterPath="$PROJECT_DIR$/media/test_images/test2.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test_images/test3.jpg" afterPath="$PROJECT_DIR$/media/test_images/test3.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test_images/test4.jpg" afterPath="$PROJECT_DIR$/media/test_images/test4.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test_images/test5.jpg" afterPath="$PROJECT_DIR$/media/test_images/test5.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test_images/test6.jpg" afterPath="$PROJECT_DIR$/media/test_images/test6.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/working_pipeline.ipynb" afterPath="$PROJECT_DIR$/media/videos/proj_video_processed.mp4" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.ipynb_checkpoints/pipeline-checkpoint.ipynb" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/pipeline-checkpoint.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pipeline.ipynb" afterPath="$PROJECT_DIR$/pipeline.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -86,7 +16,21 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="399">
+                <caret line="136" column="64" lean-forward="true" selection-start-line="136" selection-start-column="64" selection-end-line="136" selection-end-column="64" />
+                <folding />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -120,11 +64,11 @@
         <option value="$PROJECT_DIR$/src/test.py" />
         <option value="$PROJECT_DIR$/__init__.py" />
         <option value="$PROJECT_DIR$/docs/writeup_template.md" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/lane_line_validation.py" />
         <option value="$PROJECT_DIR$/src/utility_funcs.py" />
         <option value="$PROJECT_DIR$/src/img_gradient_threshold_funcs.py" />
         <option value="$PROJECT_DIR$/src/Line.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -164,34 +108,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="lane_finding" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lane_finding" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lane_finding" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lane_finding" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lane_finding" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="media" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -445,9 +361,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23189189" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23189189" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -533,17 +449,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="772">
-            <caret line="165" column="0" lean-forward="true" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/media/output_images/example_output.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -597,6 +502,17 @@
         <state relative-caret-position="315">
           <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="399">
+            <caret line="136" column="64" lean-forward="true" selection-start-line="136" selection-start-column="64" selection-end-line="136" selection-end-column="64" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
