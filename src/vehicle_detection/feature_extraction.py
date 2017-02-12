@@ -1,14 +1,15 @@
-import matplotlib.image as mpimg
 import numpy as np
 import cv2
 from skimage.feature import hog
+import glob
+from config import *
 
 
 # Define a function to return HOG features and visualization
 def get_hog_features(img, orient, pix_per_cell, cell_per_block,
                      vis=False, feature_vec=True):
     # Call with two outputs if vis==True
-    if vis == True:
+    if vis:
         features, hog_image = hog(img, orientations=orient,
                                   pixels_per_cell=(pix_per_cell, pix_per_cell),
                                   cells_per_block=(cell_per_block, cell_per_block),
@@ -74,14 +75,14 @@ def extract_features(imgs, color_space='RGB', spatial_size=(32, 32),
                 feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2YCrCb)
         else:
             feature_image = np.copy(image)
-        if spatial_feat == True:
+        if spatial_feat:
             spatial_features = bin_spatial(feature_image, size=spatial_size)
             file_features.append(spatial_features)
-        if hist_feat == True:
+        if hist_feat:
             # Apply color_hist()
             hist_features = color_hist(feature_image, nbins=hist_bins)
             file_features.append(hist_features)
-        if hog_feat == True:
+        if hog_feat:
             # Call get_hog_features() with vis=False, feature_vec=True
             if hog_channel == 'ALL':
                 hog_features = []
@@ -107,13 +108,13 @@ def extract_features(imgs, color_space='RGB', spatial_size=(32, 32),
 def slide_window(img, x_start_stop=[None, None], y_start_stop=[None, None],
                  xy_window=(64, 64), xy_overlap=(0.5, 0.5)):
     # If x and/or y start/stop positions not defined, set to image size
-    if x_start_stop[0] == None:
+    if x_start_stop[0] is None:
         x_start_stop[0] = 0
-    if x_start_stop[1] == None:
+    if x_start_stop[1] is None:
         x_start_stop[1] = img.shape[1]
-    if y_start_stop[0] == None:
+    if y_start_stop[0] is None:
         y_start_stop[0] = 0
-    if y_start_stop[1] == None:
+    if y_start_stop[1] is None:
         y_start_stop[1] = img.shape[0]
     # Compute the span of the region to be searched
     xspan = x_start_stop[1] - x_start_stop[0]
@@ -154,3 +155,17 @@ def draw_boxes(img, bboxes, color=(0, 0, 255), thick=6):
         cv2.rectangle(imcopy, bbox[0], bbox[1], color, thick)
     # Return the image copy with boxes drawn
     return imcopy
+
+
+def extract_features_dir(paths):
+    all_images = []
+    for path in paths:
+        images = glob.glob(path, recursive=True)
+        all_images.extend(images)
+
+    features = extract_features(all_images, color_space=color_space, spatial_size=spatial_size, hist_bins=hist_bins,
+                                orient=orient, pix_per_cell=pix_per_cell, cell_per_block=cell_per_block,
+                                hog_channel=hog_channel, spatial_feat=spatial_feat, hist_feat=hist_feat,
+                                hog_feat=hog_feat)
+
+    return features
