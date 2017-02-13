@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/lane_finding.iml" filepath="$PROJECT_DIR$/.idea/lane_finding.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../vehicle_detection/.idea/vehicle_detection.iml" filepath="$PROJECT_DIR$/../vehicle_detection/.idea/vehicle_detection.iml" />
     </modules>
   </component>
 </project>
