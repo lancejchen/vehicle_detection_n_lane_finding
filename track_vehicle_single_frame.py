@@ -37,7 +37,7 @@ def search_windows(img, windows, clf, scaler, color_space='RGB',
     return on_windows
 
 
-def detect_vehicle_by_clf(image, clf, X_scaler, frame_tracker):
+def detect_vehicle_by_clf(image, clf, X_scaler):
     hot_windows = []
 
 
