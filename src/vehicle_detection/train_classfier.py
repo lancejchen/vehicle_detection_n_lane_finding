@@ -9,6 +9,7 @@ from src.vehicle_detection import feature_extraction
 from src.vehicle_detection.heatmap_funcs import *
 from config import *
 from sklearn.feature_selection import RFECV
+from sklearn.model_selection import train_test_split
 
 
 def feature_preparation():
@@ -29,6 +30,11 @@ def feature_preparation():
     y_test = np.hstack((np.ones(len(test_vehicle_features)), np.zeros(len(test_non_vehicle_features))))
     X_test, y_test = shuffle(X_test, y_test, random_state=43)
     return X_train, y_train, X_test, y_test, X_scaler
+
+
+def dataset_split(X, y):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=47)
+    return X_train, X_test, y_train, y_test
 
 
 def train_classfier(X_train, y_train, X_test, y_test):

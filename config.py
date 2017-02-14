@@ -25,6 +25,8 @@ train_non_vehicle_paths = ['./media/vehicle_img/non-vehicles/Extras/*.png']
 train_non_vehicle_paths = ['./media/vehicle_img/non-vehicles/**/*.png']
 test_non_vehicle_paths = ['./media/vehicle_img/non-vehicles/GTI/*.png']
 
+# train test split ratio for classifier
+test_size = 0.25
 
 nb_recent_heatmap = 10
 # For combined frame values, how many are remained.
@@ -37,6 +39,8 @@ model_path = 'model.pkl'
 
 input_video = "./media/videos/project_video.mp4"
 output_video = './media/videos/project_video_output.mp4'
+input_video = "./media/videos/test_3.mp4"
+output_video = './media/videos/test_3_output.mp4'
 
 # vehicle search window configuration
 ## near windows

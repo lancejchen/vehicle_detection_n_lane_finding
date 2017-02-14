@@ -114,6 +114,7 @@ def detect_lane_line_pipeline(img, left_lane, right_lane):
     # average between the last n and draw them
     if left_lane.bestx is None or right_lane.bestx is None:
         result = undistort
+        newwarp = undistort
     else:
         # color_warp = get_roi_poly_bird_view(undistort, warped, left_fitx, left_roi_y, right_fitx, right_roi_y)
         color_warp = get_roi_poly_bird_view(undistort, warped, left_lane.bestx, left_roi_y, \
