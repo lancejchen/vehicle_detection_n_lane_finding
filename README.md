@@ -69,8 +69,8 @@ classifier if it exists in the directory. If not, it will train a new classifier
 train_classifier() in the same file. I set all parameters required for training a new 
 classifier as global variables in config.py file for easy configuration and fast experiments. 
 
-For the model training process, I first extract features by using extract_features() function located in 
-src/vehicle_detection/feature_extraction.py file. I combined and normalized HOG features (from Y channel in YCrCb 
+For the model training process, I first extract features from [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) images by using 
+extract_features() function located in src/vehicle_detection/feature_extraction.py file. I combined and normalized HOG features (from Y channel in YCrCb 
 color space), image bin spatial features and color histogram features as my image features. Then I used a 
 recursive feature elimination and cross-validated selection (RFECV) to get the best 30% features. After that, 
 I trained a linear SVM model using the selected features, then tested it in test dataset. I fine tuned the parameters
