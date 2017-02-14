@@ -1,140 +1,159 @@
-**Advanced Lane Finding Project**
+**Vehicle Detection Project**
 
 The goals / steps of this project are the following:
 
-* Compute the camera calibration matrix and distortion coefficients given a set of chessboard images. (But make sure 
-we are using same type of cameras with same configurations)
-* Apply a distortion correction to raw images.
-* Use color transforms, gradients, etc., to create a thresholded binary image. 
-* Apply a perspective transform to rectify binary image ("birds-eye view").
-* Detect lane pixels and fit to find the lane boundary.
-* Determine the curvature of the lane and vehicle position with respect to center.
-* Warp the detected lane boundaries back onto the original image.
-* Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
+* Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classifier Linear SVM classifier
+* Apply a color transform and append binned color features, as well as histograms of color, to the HOG feature vector. 
+* Implement a sliding-window technique and use the trained classifier to search for vehicles in images.
+* Run vehicle detection pipeline on a video stream (start with the test_video.mp4 and later implement on full 
+project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
+* Estimate a bounding box for vehicles detected.
 
 [//]: # (Image References)
+[image1]: ./media/output_images/car_not_car.png
+[image2]: ./media/output_images/hogs.png
 
-[image1]: ./media/output_images/undistorted.png "Undistorted"
-[image2]: ./media/output_images/test1.png "Road Transformed"
-[image3]: ./media/output_images/binary_combo.png "Binary Example"
-[image4]: ./media/output_images/warped_straight_lines.png "Warp Example"
-[image5]: ./media/output_images/color_fit_lines.png "Fit Visual"
-[image6]: ./media/output_images/example_output.png "Output"
-[video1]: ./media/videos/proj_video_processed.mp4 "Video"
+[image4]: ./media/output_images/draw_boxes.png
+[image5]: ./media/output_images/bboxes_and_heat.png
+[image6]: ./media/output_images/labels_map.png
+[image7]: ./media/output_images/final_output.png
+[video1]: ./project_video.mp4
+
+## How to execute the project:
+python main.py
+
+## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
+###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
 ---
+###Writeup / README
 
-###Camera Calibration
+###Histogram of Oriented Gradients (HOG)
 
-####1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
+####1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
-The code for this step is contained in "get_camera_mtx_dist()" function in python file located in src/utility_funcs.py. 
+The code for this step is contained in function called get_hog_features() (lines 6 through 23) of the file called 
+`colorspace_gradient_utils.py` located in './src' directory. This function takes an input image and apply feature.hog
+()  function from scikit-image library. I set all parameters required for it(orientation numbers, pixel per cell, 
+pixel 
+per bolck) as global variables in config.py file for easy configuration and fast experiments. 
 
-I started by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. 
-Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for 
-each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended 
-with  a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be  
-appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
-
-Then, I used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients 
-by evoking the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image by using
-`cv2.undistort()` function in cell 5 of pipleline.ipynb and obtained this result: 
+I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
 
 ![alt text][image1]
 
-###Pipeline (single images)
+I then explored different color spaces and different `skimage.feature.hog()` parameters (`orientations`, 
+`pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them 
+to get a feel for what the `skimage.hog()` output looks like.
 
-####1. Provide an example of a distortion-corrected image.
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
+Here is an example using the `YCrCb` color space and HOG parameters of `orientations=9`, `pixels_per_cell=(8, 8)` and
+ `cells_per_block=(2, 2)`:
+
+
 ![alt text][image2]
-For getting a distortion-corrected image, I reused the camera matrix and distortion coefficients got from the chess 
-board undistortion and apply them to un-distort the test image by using cv2.undistort()  
+
+####2. Explain how you settled on your final choice of HOG parameters.
+
+I tried various combinations of parameters (color space, HOG orientation numbers, HOG pixels per cell, HOG cells per 
+block, HOG channels used) and test them in my trained SVM and look for the best combination in the test score. I put
+ the best parameters from my experiments in the config.py file for easy modification. So far I'm using the `YCrCb` 
+ color space Y channel and HOG parameters of `orientations=9`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`.
+
+####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
+
+The code for this step is contained in the function called get_classifier_n_scaler() (line 47 to line 58)in the file 
+called `train_classifier.py` located in './src/vehicle_detection' directory. 
+
+This function first check whether the classifier file already exists in the directory. It'll use a already trained 
+classifier if it exists in the directory. If not, it will train a new classifier by the function named 
+train_classifier() in the same file. I set all parameters required for training a new 
+classifier as global variables in config.py file for easy configuration and fast experiments. 
+
+For the model training process, I first extract features by using extract_features() function located in 
+src/vehicle_detection/feature_extraction.py file. I combined and normalized HOG features (from Y channel in YCrCb 
+color space), image bin spatial features and color histogram features as my image features. Then I used a 
+recursive feature elimination and cross-validated selection (RFECV) to get the best 30% features. After that, 
+I trained a linear SVM model using the selected features, then tested it in test dataset. I fine tuned the parameters
+ for RFECV and linear SVM to get the highest score on my test dataset. 
  
-####2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
-I used a combination of color (grayscale and S channel in HLS colorspace in specific) and gradient thresholds (Sober 
-x, Sober y, gradient magnitude and gradient direction to be specific) to generate a binary image (thresholding 
-functions are called inside detect_lane_line_pipeline function in pipeline.ipynb).  Here's an example of my output for 
-this step. 
+ After fine tuned the parameters in my classifier, I used the parameters to re-trained my classifier using all images 
+ available (including the test images) to get a better classifier. 
+
+###Sliding Window Search
+
+####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
+
+The code for implementing a sliding window search is in the function called detect_vehicle_by_clf() in 
+./track_vehicle_single_frame.py file. I defined 3 searching scale windows (rectangles), for near car, middle distance 
+car and cars far away. Their searching scales, window_sizes and window overlappings are defined in config.py as global 
+variables. 
+
+detect_vehicle_by_clf() function will first gets all sliding windows' coordinate locations, then it will exam whether
+ a sliding window contains a car or not by using search_windows() function (The trained linear SVC classifier) in the 
+ same file. If a sliding window is predicted as a car, its coordinate location will be added to hot_windows
+ (car_windows) list. 
+
+For what scales to search and overlap windows, I first draw grids in test images and see how cars locate in the test 
+images. I then decide to define 3 ranges: near, middle and far. Then I estimated how many pixels a car occupies in 
+the 3 ranges. (All parameters defined in config.py file)
+
+After got an estimated size, I defined overlap rate. The ideal overlap rate will make sure all pixels 
+in the same range(near, middle, far) are equally searched. So the overlap rate can only be 0.5(search a pixel twice), 
+0.67(search a pixel three times), 0.8(4 times) etc. Also, I want to emphasize nearby pixels since detecting nearby cars
+ is more critical for a safe driving. 
+
+After defining several sets of search ranges, window sizes and overlap rates, I tested them on my test images and 
+test videos and picked the set of parameters which return the best results (Defined in config.py file).  
+
 ![alt text][image3]
 
-####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
+####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to try to minimize false positives and reliably detect cars?
 
-In cell 3 of pipeline.ipynb, I defined all constant variables needed in the project. I also defined  
-The code for my perspective transform is line 10 'warped = cv2.warpPerspective(threshold_img, M, (x,y))' in 
-detect_lane_line_pipeline function inside pipeline.ipynb file. the cv2.warpPerspective function takes as inputs an 
-image (`threshold_img`), as well as source (`src`) and destination (`dst`) points.  I chose to hardcode the source 
-and destination points in the following manner:
+Ultimately I searched on three scales using YCrCb Y-channel HOG features plus spatially binned color and histograms of 
+color in the feature vector, which provided a nice result. I fine-tuned parameters to extract representing features, 
+get an optimal classifier and conduct a useful sliding windows searching. For detecting vehicles in videos, I 
+recorded positive detections in recent frames and combine current positive detection with recent ones to eliminate 
+false positive. The code for recording recent frame hotmap is defined in 
+src/vehicle_detection/VehicleDetectionHeatMap.py file. The number for tracked recent frames and heatmap threshold is 
+defined in config.py file. 
 
-```
-# defined in cell 3 of pipeline.ipynb
-x = 1280
-y = 720
-offset_top = 590
-offset_btm = 200
-offset_dst = 300 
-src = np.float32([(offset_top, 450), (x-offset_top, 450), (x-offset_btm, y), (offset_btm, y)])
-dst = np.float32([(offset_dst, 0), (x-offset_dst, 0), (x-offset_dst, y), (offset_dst, y)])
+For optimize the performance of my classifier, I designed a searching strategy which can reduce sliding windows 
+searched. I try to search extensively in near range, since it's more safety critical. I also used larger sliding 
+window for near range, as near cars appears bigger in images. I reduced sliding windows overlapping rate, and defined
+ relatively bigger sliding window in all ranges to reduce searches needed. 
 
-```
-This resulted in the following source and destination points:
-
-| Source        | Destination   | 
-|:-------------:|:-------------:| 
-| 590, 450      | 300, 0        | 
-| 690, 450      | 980, 0      |
-| 1080, 720     | 980, 720      |
-| 200, 720      | 300, 720        |
-
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
+Here are some example images:
 
 ![alt text][image4]
+---
 
-####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+### Video Implementation
 
-After got the warped image from perspective transform, I wrote a function named get_sliding_window() in 
-src/utility_funcs.py to get all interested patches in the image. In the get_sliding_window function, I first generate
-a histogram on the bottom 1/3 of the warped image, then get 2 highest peaks which standing for 2 lanes in the bottom
-of the image by using a function called get_bottom_lane_marks function. 
-  
-Then starting from the bottom 2 lanes 
-  marks, I used sliding windows (height = 120px) to detect lane marks above the already detected lane parts (only areas 
-  around detected marks are checked to save some computation). By repeating the sliding windows row by row, finally I
-   checked the whole image and draw the 2 lane lines. The whole step is done by find_lane_patches() function in 
-   src/utility_funcs.py. 
-   
-Up to this point, all interested patches(width=120, height=120) are detected, then I get all 4 corner positions from
-all patches collected. I used numpy.polyfit() to fit my lane lines with a 2nd order polynomial. The code for this 
-step is from line 13 to line 23 in detected_lane_line_pipeline function inside pipeline.ipynb. 
+####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
+Here's a [link to my video result](./media/videos/vehicle_tracking_n_lane_line_marking.mp4) or 
+on [YouTube](https://youtu.be/opROITPTbkw) 
+
+
+####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
+
+I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a 
+heatmap and then thresholded (number of threshold are defined in config.py) that map to identify vehicle positions.  I 
+then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob
+ corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
+
+Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
+
+### Here is a sample heatmap:
 
 ![alt text][image5]
 
-####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
-
-Since we already got polynomials for the 2 lane lines, we can calculate the curvature for the lines in the image. After
- we get the curvature in the image, we can transfer it back into real world. As our test image is taken on U.S. 
- road, and we can assume our interested lines are about 30 meters long and 3.7 meters wide(Not exactly, but roughly). 
- Therefore, we can calculate how long a pixel stands for. I defined ym_per_pix and xm_per_pix for this purpose in pipeline.ipynb.
-  For the offset from lane center, I assumed camera is amounted at the center of the car. Therefore, I get the offset
-   of lane center with image center, then convert it back to real world offset in meters. Lines of code are in  
-   cal_offset_from_lane_center function in src/utility_funcs.py.  
- 
- The code for this step is in get_real_world_curvature() function in src/utility_funcs.py file. 
- 
-
-####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
-
-I implemented this step in line 49 of detect_lane_line_pipeline() function in pipeline.ipynb by using cv2
-.warpPerspective() function with a inverse matrix from previous perspective transform. Here is an example of my result on a test image:
-
+### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from the last frame:
 ![alt text][image6]
 
----
+### Here the resulting bounding boxes are drawn onto the last frame:
+![alt text][image7]
 
-###Pipeline (video)
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
-
-Here's a [link to my video result](https://youtu.be/EqzrqlN2y6s)
 
 ---
 
@@ -142,24 +161,27 @@ Here's a [link to my video result](https://youtu.be/EqzrqlN2y6s)
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
+Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+In my implementation, there are mainly 4 parts: Extract representative features, train an optimal classifier, design 
+an effective sliding window searching strategy and apply filters to reject false positives.  
 - Problems/issues:
-    - In perspective transform, source and destination polygon positions are hard coded. It will be inaccurate if the
-     road is very curvy. 
-    - Used only one polynomial fit for a single lane line. If the road is twisted (left turn then right turn in a 
-    short distance), one polynomial fit will not be sufficient. 
-    - Assumed road of interest is 3.7m wide and 30m long, which may not always be that case. 
-
-- Pipeline likely fail:
-    - Road is too curvy.
-    - Road is twisted. 
-    - Very narrow lane or too wide lane.
-    - Very Strong light. 
-    - Lane lines are not distinguishable.  
-
-- Ways to make it more robust and future improvement:
-    - Using lane line class (already used in my implementation). By using the lane class, we can keep track of 
-    detected lane lines in previous frame. Therefore, we can be more confident if current detection is consistent 
-    with previous data. 
-    - Add a confidence level attributes and functions in lane line class. For new frame, we detect its lane lines and 
-    estimate how confident we are about the prediction.
-    - Dynamically decide perspective transform parameters and auto detect road width.
+    - Training vehicle dataset is relatively small. 17760 vehicle and non-vehicle training images are used to get a 
+    useful classifier. If a larger dataset is used for training classifier, we can get a classifier with lower error 
+    rate. Then, the number of sliding window can be largely reduced to speed up the training. Also, the false 
+    positive will be less. 
+    - I get the final bounding box by combining hotmaps from recent frames, and it works fine for vehicle in the same
+     direction. But it worked poorly if a car is coming from the opposite direction, since its coordinate location 
+     will be quite different from frame to frame. A different filter strategy is needed for this case. 
+    - My output still have some false positives. A better sliding window setting will improve the result.
+- Where the pipeline likely fail:
+    - For cars coming from different direction (mentioned above). 
+    - The slope is steep, as the searching range and vehicle size will change. 
+    - Strong/dark light. 
+- How to make it more robust:
+    - A better sliding window strategy. 
+    - Larger vehicle and non-vehicle training set.
+    - Better filter strategy, such as weighted average for recent frames. 
+- More after thoughts:
+    - Fine tune all related parameters in the pipeline step is essential to get a useful pipeline. And the optimal 
+    parameters are gotten from lots of experiments, therefore how fast one can perform experiments and improve the 
+    pipeline from the experiment results is critical to get a working pipeline.   
