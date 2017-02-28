@@ -1,7 +1,7 @@
 **Vehicle Detection Project**
 
 ### Demonstration 
-You can see the demonstration video on [YouKu()](http://v.youku.com/v_show/id_XMjUzNDgyMDk0MA) or on [YouTube](https://youtu.be/qlgsulEVgxo) by click the gif below.
+You can see the demonstration video on [YouKu(优酷)](http://v.youku.com/v_show/id_XMjUzNDgyMDk0MA) or on [YouTube](https://youtu.be/qlgsulEVgxo) by click the gif below.
 
 [![Demo CountPages alpha](./media/output.gif)](https://youtu.be/qlgsulEVgxo)
 
