@@ -1,5 +1,10 @@
 **Vehicle Detection Project**
 
+### Demonstration 
+You can see the demonstration video on [YouKu()](http://v.youku.com/v_show/id_XMjUzNDgyMDk0MA) or on [YouTube](https://youtu.be/qlgsulEVgxo) by click the gif below.
+
+[![Demo CountPages alpha](./media/output.gif)](https://youtu.be/qlgsulEVgxo)
+
 The goals / steps of this project are the following:
 
 * Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classifier Linear SVM classifier
@@ -19,18 +24,12 @@ project_video.mp4) and create a heat map of recurring detections frame by frame 
 [image7]: ./media/output_images/final_output.png
 [video1]: ./project_video.mp4
 
-## How to execute the project:
+### Demonstration 
+
+### How to execute the project:
 python main.py
 
-## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
-###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
-
----
-###Writeup / README
-
-###Histogram of Oriented Gradients (HOG)
-
-####1. Explain how (and identify where in your code) you extracted HOG features from the training images.
+####1. How did I extract HOG features from the training images?
 
 The code for this step is contained in function called get_hog_features() (lines 6 through 23) of the file called 
 `colorspace_gradient_utils.py` located in './src' directory. This function takes an input image and apply feature.hog
@@ -52,14 +51,15 @@ Here is an example using the `YCrCb` color space and HOG parameters of `orientat
 
 ![alt text][image2]
 
-####2. Explain how you settled on your final choice of HOG parameters.
+####2. Explain how I settled on your final choice of HOG parameters.
 
 I tried various combinations of parameters (color space, HOG orientation numbers, HOG pixels per cell, HOG cells per 
 block, HOG channels used) and test them in my trained SVM and look for the best combination in the test score. I put
  the best parameters from my experiments in the config.py file for easy modification. So far I'm using the `YCrCb` 
  color space Y channel and HOG parameters of `orientations=9`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`.
 
-####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
+####3. Describe how (and identify where in your code) I trained a classifier using your selected HOG features (and 
+color features if you used them).
 
 The code for this step is contained in the function called get_classifier_n_scaler() (line 47 to line 58)in the file 
 called `train_classifier.py` located in './src/vehicle_detection' directory. 
@@ -81,7 +81,8 @@ I trained a linear SVM model using the selected features, then tested it in test
 
 ###Sliding Window Search
 
-####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
+####1. Describe how (and identify where in my code) I implemented a sliding window search.  How did I decide what 
+scales to search and how much to overlap windows?
 
 The code for implementing a sliding window search is in the function called detect_vehicle_by_clf() in 
 ./track_vehicle_single_frame.py file. I defined 3 searching scale windows (rectangles), for near car, middle distance 
@@ -107,7 +108,8 @@ test videos and picked the set of parameters which return the best results (Defi
 
 ![alt text][image3]
 
-####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to try to minimize false positives and reliably detect cars?
+####2. Show some examples of test images to demonstrate how my pipeline is working.  What did I do to try to 
+minimize false positives and reliably detect cars?
 
 Ultimately I searched on three scales using YCrCb Y-channel HOG features plus spatially binned color and histograms of 
 color in the feature vector, which provided a nice result. I fine-tuned parameters to extract representing features, 
@@ -130,11 +132,12 @@ Here are some example images:
 ### Video Implementation
 
 ####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./media/videos/vehicle_tracking_n_lane_line_marking.mp4) or 
-on [YouTube](https://youtu.be/opROITPTbkw) 
+Here's a [link to my video result](./media/videos/vehicle_tracking_and_lane_line_marking.mp4) or 
+on [YouTube](https://youtu.be/qlgsulEVgxo) 
 
 
-####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
+####2. Describe how (and identify where in my code) I implemented some kind of filter for false positives and some 
+method for combining overlapping bounding boxes.
 
 I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a 
 heatmap and then thresholded (number of threshold are defined in config.py) that map to identify vehicle positions.  I 
@@ -159,7 +162,8 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 ###Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+####1. Briefly discuss any problems / issues I faced in my implementation of this project.  Where will my 
+pipeline likely fail?  How to make it more robust?
 
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
 In my implementation, there are mainly 4 parts: Extract representative features, train an optimal classifier, design 
