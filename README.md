@@ -8,7 +8,8 @@ You can see the demonstration video on [YouKu(优酷)](http://v.youku.com/v_show
 The goals / steps of this project are the following:
 
 * Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classifier Linear SVM classifier
-* Apply a color transform and append binned color features, as well as histograms of color, to the HOG feature vector. 
+* Apply a color transform and append binned color features, as well as histograms of color, to the HOG feature vector
+. (so the feature maps will include HOG, binned color features and histograms of color.)
 * Implement a sliding-window technique and use the trained classifier to search for vehicles in images.
 * Run vehicle detection pipeline on a video stream (start with the test_video.mp4 and later implement on full 
 project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
@@ -29,10 +30,10 @@ project_video.mp4) and create a heat map of recurring detections frame by frame 
 ### How to execute the project:
 python main.py
 
-####1. How did I extract HOG features from the training images?
+#### 1. How did I extract HOG features from the training images?
 
 The code for this step is contained in function called get_hog_features() (lines 6 through 23) of the file called 
-`colorspace_gradient_utils.py` located in './src' directory. This function takes an input image and apply feature.hog
+`colorspace_gradient_utils.py` located under './src' directory. This function takes an input image and apply feature.hog
 ()  function from scikit-image library. I set all parameters required for it(orientation numbers, pixel per cell, 
 pixel 
 per bolck) as global variables in config.py file for easy configuration and fast experiments. 
@@ -51,14 +52,14 @@ Here is an example using the `YCrCb` color space and HOG parameters of `orientat
 
 ![alt text][image2]
 
-####2. Explain how I settled on your final choice of HOG parameters.
+#### 2. Explain how I settled on your final choice of HOG parameters.
 
 I tried various combinations of parameters (color space, HOG orientation numbers, HOG pixels per cell, HOG cells per 
 block, HOG channels used) and test them in my trained SVM and look for the best combination in the test score. I put
  the best parameters from my experiments in the config.py file for easy modification. So far I'm using the `YCrCb` 
  color space Y channel and HOG parameters of `orientations=9`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`.
 
-####3. Describe how (and identify where in your code) I trained a classifier using your selected HOG features (and 
+#### 3. Describe how (and identify where in your code) I trained a classifier using your selected HOG features (and 
 color features if you used them).
 
 The code for this step is contained in the function called get_classifier_n_scaler() (line 47 to line 58)in the file 
